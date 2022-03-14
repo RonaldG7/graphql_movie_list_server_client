@@ -1,0 +1,116 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.a-center {
+  align-items: center;
+}
+
+.j-center {
+  justify-content: center;
+}
+
+.s-btw {
+  justify-content: space-between;
+}
+
+.w40 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 40%;
+}
+
+.w30 {
+  margin-left: 10px;
+  width: 30%;
+}
+
+.w20 {
+  width: 20%;
+}
+
+.w10 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+
+.toolbar {
+  background-color: deeppink;
+  box-sizing: border-box;
+  color: white;
+  width: 100%;
+  height: 100px;
+
+}
+
+.toolbar div {
+  cursor: pointer;
+  width: 50%;
+}
+
+.border {
+  border-bottom: 3px solid blue;
+}
+
+.movieList {
+  margin: 20px;
+}
+
+.singleMovie {
+  background-color: #363636;
+  border-bottom: 1px solid #5e5e5e;
+  display: flex;
+}
+
+.directorList {
+  margin: 20px;
+}
+
+.singleDirector {
+  background-color: #363636;
+  border-bottom: 1px solid #5e5e5e;
+  display: flex;
+}
+
+ol {
+  padding-left: 10px;
+}
+
+ul {
+  background-color: #363636;
+}
+
+.addDirectorModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #363636;
+  border: 2px solid #000;
+  padding: 4px;
+}
+
+.input {
+  color: white;
+  border: white;
+}
+
+.addIcon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
