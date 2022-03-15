@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SingleDirector from "./SingleDirector";
 import DirectorHeader from "./DirectorHeader";
 import {useQuery} from "@apollo/client";
@@ -7,14 +7,25 @@ import SearchBar from "../SearchBar";
 import ModalAddDirector from "./ModalAddDirector";
 const Directors = () => {
 
-    const {error, loading, data} = useQuery(GET_DIRECTORS_QUERY)
+    const [search, setSearch] = useState("")
 
-    if (error) return <div>error...</div>
+    const {error, loading, data} = useQuery(GET_DIRECTORS_QUERY, {
+        variables: {
+            name: search,
+        }
+    })
+
+    function handleSearch(e, searchRef) {
+        if (e.charCode === 13 && searchRef.current.value.length === 0) return setSearch("")
+        if (e.charCode === 13 && searchRef.current.value.length > 0) return setSearch(searchRef.current.value)
+    }
+    console.log(data)
     if (loading) return <div>spinner....</div>
+    if (error) return <div>{"Something went wrong... "+ error.message}</div>
 
     return (
         <div className="directorList">
-            <SearchBar/>
+            <SearchBar handleSearch={handleSearch} />
             <DirectorHeader/>
             {!loading && data.directors.map((x, i) => <SingleDirector director={x} key={i} />)}
             <ModalAddDirector />

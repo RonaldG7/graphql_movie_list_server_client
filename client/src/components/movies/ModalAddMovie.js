@@ -20,7 +20,11 @@ const ModalAddMovie = () => {
     const [id, setId] = useState(null)
 
     const [addMovie, {error}] = useMutation(SAVE_MOVIE)
-    const {loading, data} = useQuery(GET_DIRECTORS_QUERY)
+    const {loading, data} = useQuery(GET_DIRECTORS_QUERY, {
+        variables: {
+            name: ""
+        }
+    })
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -45,11 +49,12 @@ const ModalAddMovie = () => {
                 watched: getWatched,
                 directorId: id,
             },
-            refetchQueries: [{query: GET_MOVIES_QUERY}],
+            refetchQueries: [{query: GET_MOVIES_QUERY, variables: {name: ""}}],
         })
         if (error) {
             console.log(error.message)
         }
+        setOpen(false)
     }
 
     return (
@@ -89,7 +94,7 @@ const ModalAddMovie = () => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        {!loading && data.directors.map((x, i) => <MenuItem sx={{color: "white"}} key={i} onClick={() => handleClose2(x.id)}>{x.name}</MenuItem>)}
+                        {!loading && data?.directors.map((x, i) => <MenuItem sx={{color: "white"}} key={i} onClick={() => handleClose2(x.id)}>{x.name}</MenuItem>)}
                     </Menu>
                     <button onClick={saveMovie}>Save</button>
                 </Box>

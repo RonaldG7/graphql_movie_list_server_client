@@ -10,16 +10,25 @@ const Movies = () => {
 
     const [search, setSearch] = useState("")
 
-    const {error, loading, data} = useQuery(GET_MOVIES_QUERY)
+    const {error, loading, data} = useQuery(GET_MOVIES_QUERY, {
+        variables: {
+            name: search
+        },
+    })
 
-    if (error) return <div>Something went wrong...</div>
+    function handleSearch(e, searchRef) {
+        if (e.charCode === 13 && searchRef.current.value.length === 0) return setSearch("")
+        if (e.charCode === 13 && searchRef.current.value.length > 0) return setSearch(searchRef.current.value)
+    }
+
     if (loading) return <div>Loading....</div>
+    if (error) return <div>Something went wrong...</div>
 
     return (
         <div className="movieList">
-            <SearchBar search={search} setSearch={setSearch} />
+            <SearchBar handleSearch={handleSearch}/>
             <MovieHeader/>
-            {!loading && data.movies.map((x, i) => <SingleMovie movie={x} key={i} />)}
+            {!loading && data.movies.map((x, i) => <SingleMovie movie={x} key={i}/>)}
             <ModalAddMovie/>
         </div>
     );

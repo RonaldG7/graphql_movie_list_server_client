@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import Menu from '@mui/material/Menu';
 import {UPDATE_MOVIE} from "../../graphql/updateMovieMutation";
 import {GET_MOVIES_QUERY} from "../../graphql/movieQueries";
@@ -19,7 +20,11 @@ const ModalUpdateMovie = ({open, setOpen, movieId}) => {
     const [id, setId] = useState(null)
 
     const [updateMovie, {error}] = useMutation(UPDATE_MOVIE)
-    const {loading, data} = useQuery(GET_DIRECTORS_QUERY)
+    const {loading, data} = useQuery(GET_DIRECTORS_QUERY, {
+        variables: {
+            name: ""
+        }
+    })
 
     const handleClose = () => setOpen(false)
 
@@ -45,7 +50,7 @@ const ModalUpdateMovie = ({open, setOpen, movieId}) => {
                 watched: watchedRef.current.checked,
                 directorId: id,
             },
-            refetchQueries: [{query: GET_MOVIES_QUERY}],
+            refetchQueries: [{query: GET_MOVIES_QUERY, variables: {name: ""}}],
         })
         if (error) {
             console.log(error.message)
@@ -62,6 +67,14 @@ const ModalUpdateMovie = ({open, setOpen, movieId}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box className="addDirectorModal">
+                    <Box
+                        sx={{
+                            width: 500,
+                            maxWidth: '100%',
+                        }}
+                    >
+                        <TextField style={{color: "white"}} fullWidth label="Name" id="fullWidth" />
+                    </Box>
                     <input ref={nameRef} type="text" placeholder="Name"/>
                     <input ref={genreRef} type="text" placeholder="Genre"/>
                     <input ref={rateRef} type="number" placeholder="Rating"/>
@@ -85,7 +98,7 @@ const ModalUpdateMovie = ({open, setOpen, movieId}) => {
                             'aria-labelledby': 'basic-button',
                         }}
                     >
-                        {!loading && data.directors.map((x, i) => <MenuItem sx={{color: "white"}} key={i} onClick={() => handleClose2(x.id)}>{x.name}</MenuItem>)}
+                        {!loading && data?.directors.map((x, i) => <MenuItem sx={{color: "white"}} key={i} onClick={() => handleClose2(x.id)}>{x.name}</MenuItem>)}
                     </Menu>
                     <button onClick={saveMovie}>Save</button>
                 </Box>

@@ -25,7 +25,7 @@ const ModalAddDirector = () => {
                 name: nameRef.current.value,
                 age: Number(ageRef.current.value)
             },
-            refetchQueries: [{query: GET_DIRECTORS_QUERY}],
+            refetchQueries: [{query: GET_DIRECTORS_QUERY, variables: {name: ""}}],
         })
         setOpen(false)
     }

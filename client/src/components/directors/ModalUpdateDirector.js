@@ -21,7 +21,7 @@ const ModalUpdateDirector = ({open, setOpen, directorId}) => {
                 name: nameRef.current.value,
                 age: Number(ageRef.current.value),
             },
-            refetchQueries: [{query: GET_DIRECTORS_QUERY}],
+            refetchQueries: [{query: GET_DIRECTORS_QUERY, variables: {name: ""}}],
         })
         if (error) {
             console.log(error.message)

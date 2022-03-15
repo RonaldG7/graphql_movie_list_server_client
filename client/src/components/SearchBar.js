@@ -1,17 +1,13 @@
-import React, {useRef, useState} from 'react';
+import {useRef} from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FilledInput from '@mui/material/FilledInput';
 import {Search} from "@mui/icons-material";
 
-const SearchBar = ({search, setSearch}) => {
+const SearchBar = ({handleSearch, handleSearchDirector}) => {
 
-
-
-    const handleChange = (event) => {
-        setSearch(event.target.value)
-    }
+    const searchRef = useRef()
 
     return (
         <div>
@@ -20,8 +16,11 @@ const SearchBar = ({search, setSearch}) => {
                 <FilledInput
                     sx={{color: "white", borderColor: "white"}}
                     id="filled-adornment-amount"
-                    value={search}
-                    onChange={handleChange}
+                    inputRef={searchRef}
+                    onKeyPress={(e) => {
+                        handleSearch(e, searchRef)
+                        // handleSearchDirector(e, searchRef)
+                    }}
                     startAdornment={<InputAdornment position="start">
                         <Search sx={{color: "white"}}/>
                     </InputAdornment>}

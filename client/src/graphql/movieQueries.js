@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
 export const GET_MOVIES_QUERY = gql `
-    query MoviesQuery {
-        movies{
+    query movies($name: String) {
+        movies(name: $name){
             id
             name
             genre

@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
 export const GET_DIRECTORS_QUERY = gql `
-    query DirectorsQuery {
-        directors {
+    query directors($name: String) {
+        directors(name: $name) {
             id
             name
             age

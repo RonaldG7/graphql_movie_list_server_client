@@ -17,7 +17,7 @@ const ModalDeleteMovie = ({open, setOpen, id}) => {
             variables: {
                 id
             },
-            refetchQueries: [{query: GET_MOVIES_QUERY}],
+            refetchQueries: [{query: GET_MOVIES_QUERY, variables: {name: ""}}],
         })
         if (error) {
             console.log(error.message)

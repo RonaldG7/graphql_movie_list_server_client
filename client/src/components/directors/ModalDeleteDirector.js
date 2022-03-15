@@ -16,7 +16,7 @@ const ModalDeleteDirector = ({open, setOpen, id}) => {
             variables: {
                 id
             },
-            refetchQueries: [{query: GET_DIRECTORS_QUERY}],
+            refetchQueries: [{query: GET_DIRECTORS_QUERY, variables: {name: ""}}],
         })
         setOpen(false)
     }
